@@ -1,0 +1,23 @@
+builds:
+  - binary: aws-consolify
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - "386"
+    flags: -tags netgo
+archive:
+  format: binary
+release:
+  github:
+    owner: simonswine
+    name: aws-consolify
+
+sign:
+  artifacts: checksum
+  signature: "${artifact}.asc"
+  args: ["-u", "simon+releases@swine.de", "--armor", "--output", "${signature}", "--detach-sign", "${artifact}"]
